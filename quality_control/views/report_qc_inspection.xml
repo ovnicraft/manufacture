@@ -1,0 +1,121 @@
+<odoo>
+    <template id="report_qc_test_analysis" name="Inspection Report">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="report.external_layout">
+                    <div class="page">
+                        <h4 style="text-align: center;">
+                            <strong>CONTROL DE CALIDAD</strong>
+                        </h4>
+                        <div class="row">
+                            <span>HOJA DE ANALISIS</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <strong>Analisis Nro:</strong>
+                            </div>
+                            <div class="col-xs-4">
+                                <span t-field="o.name"/>
+                            </div>
+                            <div class="col-xs-2">
+                                <strong>Fecha:</strong>
+                            </div>
+                            <div class="col-xs-4">
+                                <span t-field="o.date"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <strong>Producto:</strong>
+                            </div>
+                            <div class="col-xs-10">
+                                <span t-esc="o.product.name_get()[0][1]"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <strong>Lote:</strong>
+                            </div>
+                            <div class="col-xs-4">
+                                <span t-esc="o.lot"/>
+                            </div>
+                            <div class="col-xs-2">
+                                <strong>Muestra (Cant.):</strong>
+                            </div>
+                            <div class="col-xs-4">
+                                <span t-field="o.qty"/> <span t-field="o.product_id.uom_id.name"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <strong>Proveedor:</strong>
+                            </div>
+                            <div class="col-xs-4">
+                                <span t-if="o.picking" t-esc="o.picking.partner_id.name.upper()"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <strong>Fabricante:</strong>
+                            </div>
+                            <div class="col-xs-4">
+                                <span t-esc="o.product.manufacturer.name.upper()"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <strong>País de Orígen:</strong>
+                            </div>
+                            <div class="col-xs-4">
+                                <span t-esc="o.product.country_id.name"/>
+                            </div>
+                        </div>
+
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>EVALUACION</th>
+                                    <th>TIPO</th>
+                                    <th>RESULTADO</th>
+                                    <th>ESPECIFICACION</th>
+                                    <th>METODO</th>
+                                    <th>NIVEL INSPECCION</th>
+                                    <th>A.Q.L</th>
+                                    <th>TIPO DEFECTO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.inspection_line" t-as="line">
+                                    <tr>
+                                        <td><span t-esc="line.name"/></td>
+                                        <td><span t-field="line.question_type"/></td>
+                                        <td>
+                                            <span t-if="line.question_type.quantitative" t-esc="line.quantitative_value"/>
+                                            <span t-if="line.question_type.qualitative" t-esc="line.qualitative_value"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.valid_values"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.test_line.method"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <report
+        id="qc_inspection_test_report"
+        string="Control de Calidad"
+        model="qc.inspection"
+        report_type="qweb-pdf"
+        name="quality_control.report_qc_test_analysis"
+        file="quality_control.report_qc_test_analysis"
+        />
+</odoo>

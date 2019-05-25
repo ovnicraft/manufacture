@@ -80,6 +80,7 @@ Contributors
 * Ana Juaristi <anajuaristi@avanzosc.es>
 * Lois Rilo <lois.rilo@eficent.com>
 * Simone Rubino <simone.rubino@agilebg.com>
+* Cristian Salamea <cs@prisehub.com>
 
 Do not contact contributors directly about support or help with technical issues.
 
