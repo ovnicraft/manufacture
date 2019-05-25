@@ -50,7 +50,7 @@ class QcTest(models.Model):
         string="Company",
         default=lambda self: self.env["res.company"]._company_default_get("qc.test"),
     )
-    method = fields.Char("Metodo")
+    notes = fields.Text(string="Notes")
 
 
 class QcTestQuestion(models.Model):
@@ -106,6 +106,7 @@ class QcTestQuestion(models.Model):
     min_value = fields.Float(string="Min", digits=dp.get_precision("Quality Control"))
     max_value = fields.Float(string="Max", digits=dp.get_precision("Quality Control"))
     uom_id = fields.Many2one(comodel_name="product.uom", string="Uom")
+    method = fields.Char("Metodo")
 
 
 class QcTestQuestionValue(models.Model):

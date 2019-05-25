@@ -43,7 +43,7 @@
                                 <strong>Muestra (Cant.):</strong>
                             </div>
                             <div class="col-xs-4">
-                                <span t-field="o.qty"/> <span t-field="o.product_id.uom_id.name"/>
+                                <span t-field="o.qty"/> <span t-field="o.product.uom_id.name"/>
                             </div>
                         </div>
 
@@ -86,13 +86,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <t t-foreach="o.inspection_line" t-as="line">
+                                <t t-foreach="o.inspection_lines" t-as="line">
                                     <tr>
                                         <td><span t-esc="line.name"/></td>
                                         <td><span t-field="line.question_type"/></td>
                                         <td>
-                                            <span t-if="line.question_type.quantitative" t-esc="line.quantitative_value"/>
-                                            <span t-if="line.question_type.qualitative" t-esc="line.qualitative_value"/>
+                                            <span t-if="line.question_type == 'quantitative'" t-esc="line.quantitative_value"/>
+                                            <span t-if="line.question_type == 'qualitative'" t-esc="line.qualitative_value"/>
                                         </td>
                                         <td>
                                             <span t-esc="line.valid_values"/>
